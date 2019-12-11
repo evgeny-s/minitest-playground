@@ -30,7 +30,7 @@ Install dependencies
 ```bash
 bundle
 ```
-Fetched API Key: `ebc4518`
+Fetched API Key: `ebc4518` (1000 request/day LIMIT!!)
 
 Run tests:
 ```bash
