@@ -7,8 +7,7 @@ class ApiTest < Minitest::Test
 
   def test_no_api_key
     request('GET', '?s=star', {}, 'http://www.omdbapi.com/')
-    puts last_response.obj
-
-    # TODO: Task 2 - add the assertion
+    assert last_response.obj['Response'], "False"
+    assert last_response.obj['Error'], "No API key provided."
   end
 end
