@@ -16,7 +16,7 @@ class ApiTest < Minitest::Test
 
   def test_search_tomas
     request('GET', "?s=#{SEARCH_TOMAS}&apikey=#{API_KEY}", {}, 'http://www.omdbapi.com/')
-    last_response.obj['Search'].map { |item|
+    last_response.obj['Search'].map { |item, key|
       # assert_equal item['Title'].downcase.include?(SEARCH_TOMAS), true # Not all title has latin a. Skipped this test, because of fail
 
       ['Title', 'Year', 'imdbID', 'Type', 'Poster'].map { |prop|
@@ -25,6 +25,16 @@ class ApiTest < Minitest::Test
       }
 
       # Verify year matches correct format ??? - What is correct format?
+
+      if key === 1
+        request('GET', "?i=#{item['imdbID']}&apikey=#{API_KEY}", {}, 'http://www.omdbapi.com/')
+
+        assert_equal last_response.obj['Title'].nil?, false
+
+        request(last_response.obj['Poster'])
+
+        assert_equal last_response.code, 200
+      endif
     }
   end
 end
